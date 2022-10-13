@@ -30,20 +30,12 @@ public class SalonServiceImpl implements SalonService {
     private final SalonMapper salonMapper;
 
     @Override
-    @Caching(evict = {
-            @CacheEvict(value="salons", allEntries=true)
-    }
-    )
     public void create(SalonCreateDto salonCreateDto) {
         log.info("Saving a new salon, details: {}",salonCreateDto.toString());
         salonRepository.save(salonMapper.toSalon(salonCreateDto));
     }
 
     @Override
-    @Caching(evict = {
-            @CacheEvict(value="salons", allEntries=true)
-        }
-    )
     public void update(SalonUpdateDto salonUpdateDto) {
         Optional<Salon> salon = salonRepository.findById(salonUpdateDto.getId());
         if (salon.isEmpty()){
@@ -68,7 +60,6 @@ public class SalonServiceImpl implements SalonService {
     }
 
     @Override
-    @Cacheable(cacheNames = "salons", key = "#id")
     public SalonResponseDto getSalon(Long id) {
         Optional<Salon> salon = salonRepository.findById(id);
         if(salon.isEmpty()){
@@ -79,7 +70,6 @@ public class SalonServiceImpl implements SalonService {
     }
 
     @Override
-    @Cacheable(cacheNames = "salons")
     public List<SalonResponseDto> getAllSalon() {
         List<Salon> salons = salonRepository.findAll();
         log.info("Getting all salons, details: {}", salons);
@@ -87,7 +77,6 @@ public class SalonServiceImpl implements SalonService {
     }
 
     @Override
-    @Cacheable(cacheNames = "salons", key = "#str")
     public List<SalonResponseDto> getSalonsByQuery(String str) {
         log.info("Searching salon with string: {}", str);
         return salonMapper.toListOfSalonResponseDto(salonRepository.findByNameContainingIgnoreCase(str));
