@@ -20,8 +20,9 @@ public class CatalogServiceImpl implements CatalogService {
     private final CatalogMapper catalogMapper;
 
     @Override
-    public void createNewCatalog(CatalogCreateDto catalogDto) {
-        catalogRepository.save(catalogMapper.toCatalog(catalogDto));
+    public CatalogResponseDto createNewCatalog(CatalogCreateDto catalogDto) {
+        Catalog catalog = catalogRepository.save(catalogMapper.toCatalog(catalogDto));
+        return catalogMapper.toCatalogResponse(catalog);
     }
 
     @Override

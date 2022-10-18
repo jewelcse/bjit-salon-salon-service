@@ -22,10 +22,9 @@ public class CatalogController {
     private static final Logger log = LoggerFactory.getLogger(CatalogController.class);
     private final CatalogService catalogService;
     @PostMapping("/salons/catalogs")
-    public ResponseEntity<String> create(@RequestBody CatalogCreateDto catalogCreateDto) {
+    public ResponseEntity<CatalogResponseDto> create(@RequestBody CatalogCreateDto catalogCreateDto) {
         log.info("Creating a new catalog with name: {}", catalogCreateDto.getName());
-        catalogService.createNewCatalog(catalogCreateDto);
-        return new ResponseEntity<>("catalog created success", HttpStatus.CREATED);
+        return new ResponseEntity<>(catalogService.createNewCatalog(catalogCreateDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/salons/catalogs")
