@@ -30,13 +30,14 @@ public class SalonServiceImpl implements SalonService {
     private final SalonMapper salonMapper;
 
     @Override
-    public void create(SalonCreateDto salonCreateDto) {
+    public SalonResponseDto create(SalonCreateDto salonCreateDto) {
 //        log.info("Saving a new salon, details: {}",salonCreateDto.toString());
-        salonRepository.save(salonMapper.toSalon(salonCreateDto));
+        Salon salon = salonRepository.save(salonMapper.toSalon(salonCreateDto));
+        return salonMapper.toSalonResponse(salon);
     }
 
     @Override
-    public void update(SalonUpdateDto salonUpdateDto) {
+    public SalonResponseDto update(SalonUpdateDto salonUpdateDto) {
         Optional<Salon> salon = salonRepository.findById(salonUpdateDto.getId());
         if (salon.isEmpty()){
             throw new SalonNotFoundException("salon not found for id: " + salonUpdateDto.getId());
@@ -56,7 +57,8 @@ public class SalonServiceImpl implements SalonService {
                 .build();
 
         log.info("Updating salon, details: {}", updateSalon.toString());
-        salonRepository.save(updateSalon);
+        Salon salonResponse = salonRepository.save(updateSalon);
+        return salonMapper.toSalonResponse(salonResponse);
     }
 
     @Override

@@ -7,8 +7,8 @@ import com.bjit.salon.service.dto.response.SalonResponseDto;
 import java.util.List;
 
 public interface SalonService {
-    void create(SalonCreateDto salonCreateDto);
-    void update(SalonUpdateDto salonUpdateDto);
+    SalonResponseDto create(SalonCreateDto salonCreateDto);
+    SalonResponseDto update(SalonUpdateDto salonUpdateDto);
     SalonResponseDto getSalon(Long id);
     List<SalonResponseDto> getAllSalon();
 
