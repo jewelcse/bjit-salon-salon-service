@@ -100,7 +100,6 @@ class SalonServiceTest extends Specification {
                 .build()
     }
 
-
     def "should create a new salon"() {
         given:
         salonMapper.toSalon(salonRequest) >> salon
@@ -140,5 +139,130 @@ class SalonServiceTest extends Specification {
         db.getReviews() == (double)0.0
         db.getContractNumber() == "4738478"
 
+    }
+
+    def "should return a salon object by salon id"(){
+
+        given:
+        def salon = salon = Salon.builder()
+                .id(1L)
+                .name("abc salon")
+                .description("Best Salon of Dhaka City")
+                .address("Dhaka")
+                .userId(1L)
+                .reviews(0.0)
+                .closingTime(endTime)
+                .openingTime(startTime)
+                .contractNumber("4738478")
+                .build()
+
+        def salonResponse = salonResponse = SalonResponseDto.builder()
+                .id(1L)
+                .name("abc salon")
+                .description("Best Salon of Dhaka City")
+                .address("Dhaka")
+                .userId(1L)
+                .reviews(0.0)
+                .closingTime(endTime)
+                .openingTime(startTime)
+                .contractNumber("4738478")
+                .build()
+
+        salonRepository.findById(salon.getId()) >> Optional.of(salon)
+        salonMapper.toSalonResponse(salon) >> salonResponse
+
+        when:
+        def db = salonService.getSalon(salon.getId())
+
+        then:
+        db.getName() == "abc salon"
+        db.getDescription() == "Best Salon of Dhaka City"
+        db.getAddress() == "Dhaka"
+        db.getClosingTime() == LocalTime.parse("11:40:00")
+        db.getOpeningTime() == LocalTime.parse("10:00:00")
+        db.getUserId() == 1
+        db.getReviews() == (double)0.0
+        db.getContractNumber() == "4738478"
+
+    }
+
+    def "should return a list of salons"(){
+
+        given:
+        def salon = salon = Salon.builder()
+                .id(1L)
+                .name("abc salon")
+                .description("Best Salon of Dhaka City")
+                .address("Dhaka")
+                .userId(1L)
+                .reviews(0.0)
+                .closingTime(endTime)
+                .openingTime(startTime)
+                .contractNumber("4738478")
+                .build()
+
+        def salonResponse = salonResponse = SalonResponseDto.builder()
+                .id(1L)
+                .name("abc salon")
+                .description("Best Salon of Dhaka City")
+                .address("Dhaka")
+                .userId(1L)
+                .reviews(0.0)
+                .closingTime(endTime)
+                .openingTime(startTime)
+                .contractNumber("4738478")
+                .build()
+
+        def salons = [salon,salon,salon,salon,salon]
+        def salonsResponse = [salonResponse,salonResponse,salonResponse,salonResponse,salonResponse]
+
+        salonRepository.findAll() >> salons
+        salonMapper.toListOfSalonResponseDto(salons) >> salonsResponse
+
+        when:
+        def size = salonService.getAllSalon().size()
+
+        then:
+        size == 5
+
+    }
+
+    def "should return salon by any query string"(){
+
+        given:
+        def salon = salon = Salon.builder()
+                .id(1L)
+                .name("abc salon")
+                .description("Best Salon of Dhaka City")
+                .address("Dhaka")
+                .userId(1L)
+                .reviews(0.0)
+                .closingTime(endTime)
+                .openingTime(startTime)
+                .contractNumber("4738478")
+                .build()
+
+        def salonResponse = salonResponse = SalonResponseDto.builder()
+                .id(1L)
+                .name("abc salon")
+                .description("Best Salon of Dhaka City")
+                .address("Dhaka")
+                .userId(1L)
+                .reviews(0.0)
+                .closingTime(endTime)
+                .openingTime(startTime)
+                .contractNumber("4738478")
+                .build()
+
+        def salons = [salon,salon]
+        def salonsResponse = [salonResponse,salonResponse]
+        salonRepository.findByNameContainingIgnoreCase("abc") >> salons
+        salonMapper.toListOfSalonResponseDto(salons) >> salonsResponse
+
+        when:
+        def size = salonService.getSalonsByQuery("abc").size()
+
+        then:
+        size == 2
     }
 }
