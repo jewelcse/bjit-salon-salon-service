@@ -31,7 +31,7 @@ public class SalonServiceImpl implements SalonService {
 
     @Override
     public void create(SalonCreateDto salonCreateDto) {
-        log.info("Saving a new salon, details: {}",salonCreateDto.toString());
+//        log.info("Saving a new salon, details: {}",salonCreateDto.toString());
         salonRepository.save(salonMapper.toSalon(salonCreateDto));
     }
 

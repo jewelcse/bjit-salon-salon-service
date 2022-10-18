@@ -3,6 +3,7 @@ package com.bjit.salon.service.dto.response;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class SalonResponseDto {
     private String address;
     private long userId;
     private double reviews;
-    private Timestamp openingTime;
-    private Timestamp closingTime;
+    private LocalTime openingTime;
+    private LocalTime closingTime;
     private String contractNumber;
 }
