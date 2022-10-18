@@ -38,7 +38,9 @@ public class SalonServiceImpl implements SalonService {
 
     @Override
     public SalonResponseDto update(SalonUpdateDto salonUpdateDto) {
-        Optional<Salon> salon = salonRepository.findById(salonUpdateDto.getId());
+
+        Optional<Salon> salon = salonRepository.findById(salonUpdateDto.getId());// mock
+
         if (salon.isEmpty()){
             throw new SalonNotFoundException("salon not found for id: " + salonUpdateDto.getId());
         }
@@ -54,11 +56,12 @@ public class SalonServiceImpl implements SalonService {
                 .reviews(salon.get().getReviews())
                 .userId(salon.get().getUserId())
                 .contractNumber(salonUpdateDto.getContractNumber())
-                .build();
+                .build(); //new object creation
 
-        log.info("Updating salon, details: {}", updateSalon.toString());
-        Salon salonResponse = salonRepository.save(updateSalon);
-        return salonMapper.toSalonResponse(salonResponse);
+        //log.info("Updating salon, details: {}", updateSalon.toString());
+        Salon salonResponse = salonRepository.save(updateSalon); // mock
+        return salonMapper.toSalonResponse(salonResponse); // mock
+
     }
 
     @Override
