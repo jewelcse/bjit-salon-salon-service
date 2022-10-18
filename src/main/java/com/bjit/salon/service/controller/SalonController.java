@@ -27,17 +27,15 @@ public class SalonController {
 
 
     @PostMapping("/salons") // admin can create salon
-    public ResponseEntity<String> create(@RequestBody SalonCreateDto salonCreateDto){
+    public ResponseEntity<SalonResponseDto> create(@RequestBody SalonCreateDto salonCreateDto){
         log.info("Creating salon with name: {}", salonCreateDto.getName());
-        salonService.create(salonCreateDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Salon created success");
+        return ResponseEntity.status(HttpStatus.CREATED).body(salonService.create(salonCreateDto));
     }
 
     @PutMapping("/salons") // admin can update
-    public ResponseEntity<String> update(@RequestBody SalonUpdateDto salonUpdateDto){
+    public ResponseEntity<SalonResponseDto> update(@RequestBody SalonUpdateDto salonUpdateDto){
         log.info("Updating salon with name: {}",salonUpdateDto.getName());
-        salonService.update(salonUpdateDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Salon updated success");
+        return ResponseEntity.status(HttpStatus.CREATED).body(salonService.update(salonUpdateDto));
     }
 
     @GetMapping("/salons/{id}") // admin can view

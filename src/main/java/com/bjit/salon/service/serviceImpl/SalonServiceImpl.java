@@ -30,14 +30,15 @@ public class SalonServiceImpl implements SalonService {
     private final SalonMapper salonMapper;
 
     @Override
-    public void create(SalonCreateDto salonCreateDto) {
+    public SalonResponseDto create(SalonCreateDto salonCreateDto) {
 //        log.info("Saving a new salon, details: {}",salonCreateDto.toString());
-        salonRepository.save(salonMapper.toSalon(salonCreateDto));
+        Salon salon = salonRepository.save(salonMapper.toSalon(salonCreateDto));
+        return salonMapper.toSalonResponse(salon);
     }
 
     @Override
-    public void update(SalonUpdateDto salonUpdateDto) {
-        Optional<Salon> salon = salonRepository.findById(salonUpdateDto.getId());
+    public SalonResponseDto update(SalonUpdateDto salonUpdateDto) {
+        Optional<Salon> salon = salonRepository.findById(salonUpdateDto.getId());// mock
         if (salon.isEmpty()){
             throw new SalonNotFoundException("salon not found for id: " + salonUpdateDto.getId());
         }
@@ -53,10 +54,11 @@ public class SalonServiceImpl implements SalonService {
                 .reviews(salon.get().getReviews())
                 .userId(salon.get().getUserId())
                 .contractNumber(salonUpdateDto.getContractNumber())
-                .build();
+                .build(); //new object creation
 
-        log.info("Updating salon, details: {}", updateSalon.toString());
-        salonRepository.save(updateSalon);
+        //log.info("Updating salon, details: {}", updateSalon.toString());
+        Salon salonResponse = salonRepository.save(updateSalon); // mock
+        return salonMapper.toSalonResponse(salonResponse); // mock
     }
 
     @Override

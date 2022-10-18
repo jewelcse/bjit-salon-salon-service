@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class Salon {
     private String address;
     private long userId;
     private double reviews;
-    private Timestamp openingTime;
-    private Timestamp closingTime;
+    private LocalTime openingTime;
+    private LocalTime closingTime;
     private String contractNumber;
 }
