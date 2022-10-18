@@ -4,6 +4,7 @@ package com.bjit.salon.service.dto.request;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class SalonCreateDto {
     private String description;
     private String address;
     private long userId;
-    private Timestamp openingTime;
-    private Timestamp closingTime;
+    private LocalTime openingTime;
+    private LocalTime closingTime;
     private String contractNumber;
 }
