@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CatalogService {
 
-    void createNewCatalog(CatalogCreateDto catalogDto);
+    CatalogResponseDto createNewCatalog(CatalogCreateDto catalogDto);
     CatalogResponseDto getCatalog(long id);
     List<CatalogResponseDto> getAllCatalog();
 
