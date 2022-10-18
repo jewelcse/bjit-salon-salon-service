@@ -3,7 +3,7 @@ package com.bjit.salon.service.dto.request;
 
 import lombok.*;
 
-import java.sql.Timestamp;
+
 import java.time.LocalTime;
 
 @AllArgsConstructor

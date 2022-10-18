@@ -4,7 +4,7 @@ package com.bjit.salon.service.entiry;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+
 import java.time.LocalTime;
 import java.util.List;
 
