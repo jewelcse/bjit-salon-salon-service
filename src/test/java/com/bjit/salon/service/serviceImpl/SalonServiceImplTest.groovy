@@ -1,4 +1,4 @@
-package com.bjit.salon.service
+package com.bjit.salon.service.serviceImpl
 
 import com.bjit.salon.service.dto.request.SalonCreateDto
 import com.bjit.salon.service.dto.request.SalonUpdateDto
@@ -17,12 +17,10 @@ import spock.lang.Specification
 import java.time.LocalTime
 
 
-@SpringBootTest
-class SalonServiceTest extends Specification {
+class SalonServiceImplTest extends Specification {
 
 
     private SalonServiceImpl salonService
-//    @Autowired
     private SalonMapper salonMapper
     private SalonRepository salonRepository
 
