@@ -39,33 +39,22 @@ public class SalonController {
     }
 
     @GetMapping("/salons/{id}") // admin can view
-    @CircuitBreaker(name = "salon-service", fallbackMethod = "getSalonFallback")
     public ResponseEntity<SalonResponseDto> get(@PathVariable("id") Long id){
         log.info("Getting salon details with salon id: {}",id);
         return ResponseEntity.ok(salonService.getSalon(id));
     }
-    public ResponseEntity<SalonResponseDto> getSalonFallback(Exception exception){
-        return ResponseEntity.ok(new SalonResponseDto());
-    }
+
     @GetMapping("/salons")
-    @CircuitBreaker(name = "salon-service", fallbackMethod = "getAllSalonFallback")
     public ResponseEntity<List<SalonResponseDto>> getAll(){
         List<SalonResponseDto> allSalon = salonService.getAllSalon();
         log.info("getting salons, size: {}",allSalon.size());
         return ResponseEntity.ok(allSalon);
     }
-    public ResponseEntity<List<SalonResponseDto>> getAllSalonFallback(Exception exception) {
-        return ResponseEntity.ok(new ArrayList<>());
-    }
 
     @GetMapping("/salons/search")
-    @CircuitBreaker(name = "salon-service", fallbackMethod = "searchFallback")
     public ResponseEntity<List<SalonResponseDto>> search(@RequestParam("q") String str){
         log.info("Searching salons with query: {}",str);
         return ResponseEntity.ok(salonService.getSalonsByQuery(str));
-    }
-    public ResponseEntity<List<SalonResponseDto>>searchFallback(Exception exception){
-        return ResponseEntity.ok(new ArrayList<>());
     }
 
 }
