@@ -1,4 +1,4 @@
-package com.bjit.salon.service.entiry;
+package com.bjit.salon.service.entity;
 
 
 import lombok.*;
@@ -6,7 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.time.LocalTime;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor

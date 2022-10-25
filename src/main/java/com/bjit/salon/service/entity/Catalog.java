@@ -1,4 +1,4 @@
-package com.bjit.salon.service.entiry;
+package com.bjit.salon.service.entity;
 
 import lombok.*;
 

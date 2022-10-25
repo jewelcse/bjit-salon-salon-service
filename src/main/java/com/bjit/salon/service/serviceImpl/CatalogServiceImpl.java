@@ -2,7 +2,7 @@ package com.bjit.salon.service.serviceImpl;
 
 import com.bjit.salon.service.dto.request.CatalogCreateDto;
 import com.bjit.salon.service.dto.response.CatalogResponseDto;
-import com.bjit.salon.service.entiry.Catalog;
+import com.bjit.salon.service.entity.Catalog;
 import com.bjit.salon.service.exception.CatalogNotFoundException;
 import com.bjit.salon.service.mapper.CatalogMapper;
 import com.bjit.salon.service.repository.CatalogRepository;

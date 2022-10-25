@@ -1,8 +1,7 @@
 package com.bjit.salon.service.serviceImpl
 
 import com.bjit.salon.service.dto.request.CatalogCreateDto
-import com.bjit.salon.service.dto.response.CatalogResponseDto
-import com.bjit.salon.service.entiry.Catalog
+import com.bjit.salon.service.entity.Catalog
 import com.bjit.salon.service.exception.CatalogNotFoundException
 import com.bjit.salon.service.mapper.CatalogMapper
 import com.bjit.salon.service.repository.CatalogRepository
@@ -84,14 +83,14 @@ class CatalogServiceImplTest extends Specification {
 
     def "should throw catalog not found exception by catalog id"(){
         given:
-        catalogRepository.findById(1L) >> {  throw new CatalogNotFoundException("catalog not found") }
+        catalogRepository.findById(1L) >> Optional.ofNullable(null)
 
         when:
         catalogService.getCatalog(1L)
 
         then:
         def ex = thrown(CatalogNotFoundException)
-        ex.message == "catalog not found"
+        ex.message == "Catalog not found for id: 1"
     }
 
     def "should return a list of catalog"(){
