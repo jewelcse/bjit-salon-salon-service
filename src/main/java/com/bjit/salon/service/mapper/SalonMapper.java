@@ -4,7 +4,7 @@ package com.bjit.salon.service.mapper;
 import com.bjit.salon.service.dto.request.SalonCreateDto;
 import com.bjit.salon.service.dto.request.SalonUpdateDto;
 import com.bjit.salon.service.dto.response.SalonResponseDto;
-import com.bjit.salon.service.entiry.Salon;
+import com.bjit.salon.service.entity.Salon;
 import org.mapstruct.Mapper;
 
 import java.util.List;

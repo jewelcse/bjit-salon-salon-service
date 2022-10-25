@@ -2,7 +2,7 @@ package com.bjit.salon.service.serviceImpl
 
 import com.bjit.salon.service.dto.request.SalonCreateDto
 import com.bjit.salon.service.dto.request.SalonUpdateDto
-import com.bjit.salon.service.entiry.Salon
+import com.bjit.salon.service.entity.Salon
 import com.bjit.salon.service.exception.SalonNotFoundException
 import com.bjit.salon.service.mapper.SalonMapper
 import com.bjit.salon.service.repository.SalonRepository
@@ -118,6 +118,35 @@ class SalonServiceImplTest extends Specification {
 
     }
 
+    def "should throw salon not found exception while update the salon"(){
+
+        given:
+        def startTime = LocalTime.parse("10:00:00")
+        def endTime = startTime
+                .plusHours(1)
+                .plusMinutes(40)
+
+        def salonUpdateRequest = SalonUpdateDto.builder()
+                .name("abc salon")
+                .description("Best Salon of Dhaka City")
+                .address("Dhaka")
+                .id(1L)
+                .closingTime(endTime)
+                .openingTime(startTime)
+                .contractNumber("4738478")
+                .build()
+
+        salonRepository.findById(1L) >> Optional.ofNullable(null)
+
+        when:
+        salonService.update(salonUpdateRequest)
+
+        then:
+        def response = thrown(SalonNotFoundException)
+        response.message == "salon not found for id: 1"
+
+    }
+
     def "should return a salon object by salon id"() {
 
         given:
@@ -157,12 +186,12 @@ class SalonServiceImplTest extends Specification {
 
     def "should throw salon not found exception by salon id"(){
         given:
-        salonRepository.findById(1L) >> {throw new SalonNotFoundException("salon not found")}
+        salonRepository.findById(1L) >> Optional.ofNullable(null)
         when:
         salonService.getSalon(1L)
         then:
         def exception = thrown(SalonNotFoundException)
-        exception.message == "salon not found"
+        exception.message == "Salon not found for id: 1"
 
     }
 

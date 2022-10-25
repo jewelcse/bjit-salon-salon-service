@@ -2,7 +2,7 @@ package com.bjit.salon.service.mapper;
 
 import com.bjit.salon.service.dto.request.CatalogCreateDto;
 import com.bjit.salon.service.dto.response.CatalogResponseDto;
-import com.bjit.salon.service.entiry.Catalog;
+import com.bjit.salon.service.entity.Catalog;
 import org.mapstruct.Mapper;
 
 import java.util.List;
