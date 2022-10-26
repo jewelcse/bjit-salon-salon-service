@@ -6,6 +6,7 @@ import com.bjit.salon.service.entity.Salon
 import com.bjit.salon.service.exception.SalonNotFoundException
 import com.bjit.salon.service.mapper.SalonMapper
 import com.bjit.salon.service.repository.SalonRepository
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification

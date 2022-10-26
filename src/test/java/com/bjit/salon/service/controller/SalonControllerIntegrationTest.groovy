@@ -21,6 +21,8 @@ class SalonControllerIntegrationTest extends Specification {
     @Autowired
     private MockMvc mockMvc;
 
+
+
     def "should create a new salon"(){
 
         given:
@@ -69,6 +71,8 @@ class SalonControllerIntegrationTest extends Specification {
         mockMvc.perform(get("/api/v1/salons/1"))
                 .andExpect(status().isOk())
                 .andDo(print());
+
+
     }
 
     def "should return the list of salons"(){
