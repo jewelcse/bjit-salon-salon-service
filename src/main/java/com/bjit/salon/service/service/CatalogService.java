@@ -10,6 +10,5 @@ public interface CatalogService {
     CatalogResponseDto createNewCatalog(CatalogCreateDto catalogDto);
     CatalogResponseDto getCatalog(long id);
     List<CatalogResponseDto> getAllCatalog();
-
-
+    List<CatalogResponseDto> getAllCatalogBySalon(long salonId);
 }

@@ -38,4 +38,9 @@ public class CatalogServiceImpl implements CatalogService {
     public List<CatalogResponseDto> getAllCatalog() {
         return catalogMapper.toCatalogsResponse(catalogRepository.findAll());
     }
+
+    @Override
+    public List<CatalogResponseDto> getAllCatalogBySalon(long salonId) {
+        return catalogMapper.toCatalogsResponse(catalogRepository.findAllBySalonId(salonId));
+    }
 }

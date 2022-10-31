@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Path;
 import java.util.List;
 
 import static com.bjit.salon.service.util.ConstraintsUtil.APPLICATION_BASE_URL;
@@ -30,6 +31,13 @@ public class CatalogController {
     @GetMapping("/salons/catalogs")
     public ResponseEntity<List<CatalogResponseDto>> getAll(){
         List<CatalogResponseDto> allCatalog = catalogService.getAllCatalog();
+        log.info("Getting all catalog with size: {}", allCatalog.size());
+        return ResponseEntity.ok(allCatalog);
+    }
+
+    @GetMapping("/salons/{id}/catalogs")
+    public ResponseEntity<List<CatalogResponseDto>> getAllBySalon(@PathVariable("id") long id){
+        List<CatalogResponseDto> allCatalog = catalogService.getAllCatalogBySalon(id);
         log.info("Getting all catalog with size: {}", allCatalog.size());
         return ResponseEntity.ok(allCatalog);
     }

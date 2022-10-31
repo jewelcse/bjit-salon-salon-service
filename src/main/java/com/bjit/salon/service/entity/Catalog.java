@@ -25,4 +25,8 @@ public class Catalog {
     private int approximateTimeForCompletion; // IN MINUTES
     @Column(name = "payable_amount")
     private double payableAmount;
+
+    @Column(name = "salon_id")
+    private long salonId;
+
 }

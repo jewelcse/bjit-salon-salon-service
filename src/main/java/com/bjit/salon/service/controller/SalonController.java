@@ -38,7 +38,7 @@ public class SalonController {
         return ResponseEntity.status(HttpStatus.CREATED).body(salonService.update(salonUpdateDto));
     }
 
-    @GetMapping("/salons/{id}") // admin can view
+    @GetMapping("/salons/{id}")
     public ResponseEntity<SalonResponseDto> get(@PathVariable("id") Long id){
         log.info("Getting salon details with salon id: {}",id);
         return ResponseEntity.ok(salonService.getSalon(id));

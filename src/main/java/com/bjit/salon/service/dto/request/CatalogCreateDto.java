@@ -15,4 +15,6 @@ public class CatalogCreateDto {
     private String description;
     private int approximateTimeForCompletion; // IN MINUTES
     private double payableAmount;
+
+    private long salonId;
 }
