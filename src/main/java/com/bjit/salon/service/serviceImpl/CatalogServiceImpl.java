@@ -27,11 +27,8 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public CatalogResponseDto getCatalog(long id) {
-        Optional<Catalog> catalog = catalogRepository.findById(id);
-        if(catalog.isEmpty()){
-            throw new CatalogNotFoundException("Catalog not found for id: " + id);
-        }
-        return catalogMapper.toCatalogResponse(catalog.get());
+        Catalog catalog = getCatalogByCatalogId(id);
+        return catalogMapper.toCatalogResponse(catalog);
     }
 
     @Override
@@ -42,5 +39,13 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public List<CatalogResponseDto> getAllCatalogBySalon(long salonId) {
         return catalogMapper.toCatalogsResponse(catalogRepository.findAllBySalonId(salonId));
+    }
+
+    private Catalog getCatalogByCatalogId(Long id) {
+        Optional<Catalog> catalog = catalogRepository.findById(id);
+        if(catalog.isEmpty()){
+            throw new CatalogNotFoundException("Catalog not found for id: " + id);
+        }
+        return catalog.get();
     }
 }

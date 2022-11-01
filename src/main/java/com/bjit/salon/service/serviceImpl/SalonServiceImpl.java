@@ -27,47 +27,34 @@ public class SalonServiceImpl implements SalonService {
 
     @Override
     public SalonResponseDto create(SalonCreateDto salonCreateDto) {
-//        log.info("Saving a new salon, details: {}",salonCreateDto.toString());
         Salon salon = salonRepository.save(salonMapper.toSalon(salonCreateDto));
         return salonMapper.toSalonResponse(salon);
     }
 
     @Override
     public SalonResponseDto update(SalonUpdateDto salonUpdateDto) {
-
-        Optional<Salon> salon = salonRepository.findById(salonUpdateDto.getId());// mock
-
-        if (salon.isEmpty()){
-            throw new SalonNotFoundException("salon not found for id: " + salonUpdateDto.getId());
-        }
-
+        Salon salon = getSalonBySalonId(salonUpdateDto.getId());
         Salon updateSalon = Salon
                 .builder()
-                .id(salon.get().getId())
+                .id(salon.getId())
                 .address(salonUpdateDto.getAddress())
                 .description(salonUpdateDto.getDescription())
                 .name(salonUpdateDto.getName())
                 .openingTime(salonUpdateDto.getOpeningTime())
                 .closingTime(salonUpdateDto.getClosingTime())
-                .reviews(salon.get().getReviews())
-                .userId(salon.get().getUserId())
+                .reviews(salon.getReviews())
+                .userId(salon.getUserId())
                 .contractNumber(salonUpdateDto.getContractNumber())
-                .build(); //new object creation
-
-        //log.info("Updating salon, details: {}", updateSalon.toString());
-        Salon salonResponse = salonRepository.save(updateSalon); // mock
-        return salonMapper.toSalonResponse(salonResponse); // mock
-
+                .build();
+        Salon salonResponse = salonRepository.save(updateSalon);
+        return salonMapper.toSalonResponse(salonResponse);
     }
 
     @Override
     public SalonResponseDto getSalon(Long id) {
-        Optional<Salon> salon = salonRepository.findById(id);
-        if(salon.isEmpty()){
-            throw new SalonNotFoundException("Salon not found for id: " + id);
-        }
-        log.info("Getting salon details:{}, for id:{}", salon.get(),id);
-        return salonMapper.toSalonResponse(salon.get());
+        Salon salon = getSalonBySalonId(id);
+        log.info("Getting salon details:{}, for id:{}", salon ,id);
+        return salonMapper.toSalonResponse(salon);
     }
 
     @Override
@@ -81,5 +68,11 @@ public class SalonServiceImpl implements SalonService {
     public List<SalonResponseDto> getSalonsByQuery(String str) {
         log.info("Searching salon with string: {}", str);
         return salonMapper.toListOfSalonResponseDto(salonRepository.findByNameContainingIgnoreCase(str));
+    }
+
+    private Salon getSalonBySalonId(Long id) {
+        Optional<Salon> salon = salonRepository.findById(id);
+        if(salon.isEmpty()) throw new SalonNotFoundException("Salon not found for id: " + id);
+        return salon.get();
     }
 }
